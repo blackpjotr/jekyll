@@ -34,6 +34,17 @@ class TestFilters < JekyllUnitTest
     def select; end
   end
 
+  class KeyValue
+    def initialize(key:, value:)
+      @key = key
+      @val = value
+    end
+
+    def inspect
+      "{#{@key.inspect}=>#{@val.inspect}}"
+    end
+  end
+
   context "filters" do
     setup do
       @sample_time = Time.utc(2013, 3, 27, 11, 22, 33)
@@ -691,7 +702,7 @@ class TestFilters < JekyllUnitTest
 
         next_doc = actual.delete("next")
         refute_nil next_doc
-        assert next_doc.is_a?(Hash), "doc.next should be an object"
+        assert_kind_of Hash, next_doc, "doc.next should be an object"
 
         assert_equal expected, actual
       end
@@ -802,22 +813,22 @@ class TestFilters < JekyllUnitTest
           assert_includes names, g["name"], "#{g["name"]} isn't a valid grouping."
           case g["name"]
           when "default"
-            assert(
-              g["items"].is_a?(Array),
+            assert_kind_of(
+              Array, g["items"],
               "The list of grouped items for 'default' is not an Array."
             )
             # adjust array.size to ignore symlinked page in Windows
             qty = Utils::Platforms.really_windows? ? 4 : 5
             assert_equal qty, g["items"].size
           when "nil"
-            assert(
-              g["items"].is_a?(Array),
+            assert_kind_of(
+              Array, g["items"],
               "The list of grouped items for 'nil' is not an Array."
             )
             assert_equal 2, g["items"].size
           when ""
-            assert(
-              g["items"].is_a?(Array),
+            assert_kind_of(
+              Array, g["items"],
               "The list of grouped items for '' is not an Array."
             )
             # adjust array.size to ignore symlinked page in Windows
@@ -957,6 +968,18 @@ class TestFilters < JekyllUnitTest
       should "always return an array if the object responds to 'select'" do
         results = @filter.where(SelectDummy.new, "obj", "1 == 1")
         assert_equal [], results
+      end
+
+      should "gracefully handle invalid property type" do
+        hash = {
+          "members" => { "name" => %w(John Jane Jimmy) },
+          "roles"   => %w(Admin Recruiter Manager),
+        }
+        err = assert_raises(TypeError) { @filter.where(hash, "name", "Jimmy") }
+        truncatd_arr_str = hash["roles"].to_liquid.to_s[0...20]
+        msg = "Error accessing object (#{truncatd_arr_str}) with given key. Expected an integer " \
+              'but got "name" instead.'
+        assert_equal msg, err.message
       end
     end
 
@@ -1294,22 +1317,22 @@ class TestFilters < JekyllUnitTest
           assert_includes names, g["name"], "#{g["name"]} isn't a valid grouping."
           case g["name"]
           when "DEFAULT"
-            assert(
-              g["items"].is_a?(Array),
+            assert_kind_of(
+              Array, g["items"],
               "The list of grouped items for 'default' is not an Array."
             )
             # adjust array.size to ignore symlinked page in Windows
             qty = Utils::Platforms.really_windows? ? 4 : 5
             assert_equal qty, g["items"].size
           when "nil"
-            assert(
-              g["items"].is_a?(Array),
+            assert_kind_of(
+              Array, g["items"],
               "The list of grouped items for 'nil' is not an Array."
             )
             assert_equal 2, g["items"].size
           when ""
-            assert(
-              g["items"].is_a?(Array),
+            assert_kind_of(
+              Array, g["items"],
               "The list of grouped items for '' is not an Array."
             )
             # adjust array.size to ignore symlinked page in Windows
@@ -1445,7 +1468,9 @@ class TestFilters < JekyllUnitTest
 
     context "inspect filter" do
       should "return a HTML-escaped string representation of an object" do
-        assert_equal "{&quot;&lt;a&gt;&quot;=&gt;1}", @filter.inspect("<a>" => 1)
+        hash_like_object = KeyValue.new(:key => "<a>", :value => 1)
+        assert_equal '{"<a>"=>1}', hash_like_object.inspect
+        assert_equal "{&quot;&lt;a&gt;&quot;=&gt;1}", @filter.inspect(hash_like_object)
       end
 
       should "quote strings" do

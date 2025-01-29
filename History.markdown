@@ -1,16 +1,36 @@
-## HEAD
+## 4.4.1 / 2025-01-29
+
+### Bug Fixes
+
+  * Restore globbed path behavior in front matter defaults (#9762)
+
+## 4.4.0 / 2025-01-27
 
 ### Minor Enhancements
 
   * Allow marking specific highlighted lines via Liquid (#9138)
+  * Add gem `csv` to runtime dependency list (#9522)
+  * Bump the minimum ruby version to 2.7 (#9525)
+  * Acknowledge `livereload_port` from site config too (#9606)
+  * Add gem `base64` as runtime dependency (#9740)
+  * Add gem `json` as runtime_dependency (#9671)
+  * Remove unnecessary constraint on gem `mercenary` (#9758)
 
-### Documentation
+### Bug Fixes
 
-  * Fix Nested tree navigation with recursion example (#9174)
-  * Fix typo on website (#9203)
-  * Publish post on major release of sass-converter (#9225)
-  * Update Jekyll on macOS (macos.md) and current ruby version to 3.1.3 in ruby.yml (#9195)
-  * Add release post for v4.3.2 (#9263)
+  * Optimize default front matter using `File.fnmatch?` (#9185)
+  * Remove totals in profile table properly (#9186)
+  * Optimize `Site#each_site_file` (#9187)
+  * Rename sass partial created for new blank site (#9257)
+  * Fix `jekyll serve --detach` with jekyll-sass-converter 3.x (#9304)
+  * Handle TypeError from `where` filter gracefully (#9292)
+  * Add support for upcoming logger 1.4.3 (#9392)
+  * Fix typo in devcontainer.json (#9364)
+  * Correct rubocop lint errors (#9600)
+  * Fix inexistent layout warning for the default 404 page (#9589)
+  * Relax version constraint on `wdm` in new Gemfile (#9662)
+  * Fix `--livereload-ignore` option (#9570)
+  * Render theme-gem root only in development (#9680)
 
 ### Development Fixes
 
@@ -21,26 +41,164 @@
   * Split `test/test_tags.rb` into multiple files (#9230)
   * test: use hash explicitly for Struct initializer for ruby 3.2 (#9237)
   * script/default-site: accept flags for `jekyll new` (#9259)
+  * Bump check-spelling/check-spelling from 0.0.20 to 0.0.21 (#9205)
+  * Use check-spelling/check-spelling@v0.0.21 (#9199)
+  * Bump RuboCop to v1.45.x (#9305)
+  * Bump Rubocop to version 1.48.x (#9326)
+  * Bump versions of ruby &amp; nodejs in devcontainer (#9360)
+  * Bump rubocop version to 1.52.x (#9361)
+  * Upgrade RuboCop to 1.54 (#9401)
+  * Add CodeQL workflow (#9397)
+  * Bump actions/checkout from 3 to 4 (#9442)
+  * Test suite uses shoulda-context only. (#9441)
+  * Keep activesupport at version 7.0.x (#9469)
+  * Bump Rubocop to 1.56.4 (#9459)
+  * Configure dependabot to handle rubygems dependencies (#9445)
+  * Update rubocop gem (#9476)
+  * Fix Performance/StringIdentifierArgument violation in site.rb and allow activesupport 6 for windows tests (#9512)
+  * Add a few more emeritus team members (#9535)
+  * Make custom cop inherit `RuboCop::Cop::Base` (#9597)
+  * CI: Use JRuby 9.4.8.0 (#9654)
+  * Stop testing with Cucumber on JRuby (#9661)
+  * Windows CI on GitHub Actions (#9659)
+  * Run GitHub Actions only if needed (#9664)
+  * Format `.rubocop.yml` via a rake task (#9687)
+  * Configure some new cops (#9688)
+  * Fix expected markup per WAI-ARIA requirements (#9737)
+  * Add an optional `:rdoc` group of gems (#9742)
+  * Test `inspect` filter with custom object (#9743)
+  * Bump cucumber to v9 (#9747)
+  * Add Ruby 3.4 to CI matrix (#9740)
+  * Remove unnecessary runtime dependency (#9753)
+  * Bump `check-spelling/check-spelling` action (#9756)
+
+### Documentation
+
+  * Fix Nested tree navigation with recursion example (#9174)
+  * Fix typo on website (#9203)
+  * Publish post on major release of sass-converter (#9225)
+  * Update Jekyll on macOS (macos.md) and current ruby version to 3.1.3 in ruby.yml (#9195)
+  * Add release post for v4.3.2 (#9263)
+  * Grammatical reordering in  3-to-4 upgrading docs (#9245)
+  * fixed grammatical mistake on &#34;showcase&#34; page (#9264)
+  * Mark `highlight` `mark_lines` feature as 4.4 in docs (#9184)
+  * Add v3.9.3 release history &amp; post to `master` branch (#9284)
+  * Update S3 deployment to remove s3_website (#9221)
+  * Document Exclude behavior, Include overrides and the default exclusion list (#9376)
+  * Update macos.md, remove Catalina (macOS 10.15) (#9405)
+  * Update macos.md, add support for Ventura (#9406)
+  * Typo fix - update to hooks and 3rd party deployment and one other article (#9411)
+  * Update 07-assets.md (#9393)
+  * Mention the front matter requirement in pages.md (#9423)
+  * Point to the Rouge GitHub repo rather than broken website (#9362)
+  * Add new theme directory to themes resources (#9356)
+  * Adds Kinsta to 3rd party deployments (#9331)
+  * Update Fedora prerequisites to include g++ (#9290)
+  * Update convert-site-to-jekyll.md (#9348)
+  * Update github-actions documentation (#9426)
+  * Update resources.md (#9449)
+  * Add GitHub Pages helpful notes (#9235)
+  * Clarify which version of Jekyll needs &#39;jekyll-paginate&#39; (#9477)
+  * chore: update showcases (#9473)
+  * Add FreeBSD installation instructions (#9481)
+  * Fix broken link for the security team page (#9497)
+  * Fix broken links for several Jekyll integrations (#9496)
+  * Add release post for v4.3.3 (#9511)
+  * Add docs version badge to page_excerpts feature (#9520)
+  * Improve accessibility of the docs (#9338)
+  * Fix gem quote consistency on docs (#9517)
+  * Make site search work again (#9530)
+  * Jekyll docs template typo - All pages show &#34;Deployment&#34; (#9548)
+  * Fixed: Wrong navigation style on the right side of news and docs pages (#9586)
+  * Add redirect for step-by-step tutorial (#9593)
+  * Add Jekyll 3.10.0 release post &amp; history (#9625)
+  * Fix minor docs error (#9641)
+  * Update windows.md (#9644)
+  * Document keys of global variable `{{ jekyll }}` (#9653)
+  * Fix incorrect and inconsistent variables in the permalinks page (#9591)
+  * Fix lapses in documentation of page variables (#9667)
+  * Add note about VSCode warning for SCSS files (#9609)
+  * docs: Fix incorrect parentheses (#9629)
+  * docs: Fix of a bug in the pagination section (#8890)
+  * Update current Ruby version renders and macOS docs (#9614)
+  * Improve docs around using GitHub Actions to build and deploy Jekyll sites (#9682)
+  * Fix grammar in the description of `page.excerpt` variable (#9689)
+  * Render HTML tables at `/docs/permalinks/` using a data file (#9666)
+  * Fix HTML attribute separation whitespace placement in the Navigation include code of Assets step of the Step by Step Tutorial (#9695)
+  * Fix missing glob matching pattern support description in the documentation of the `include` and `exclude` configuration options (#9697)
+  * Fix missing `url` configuration option documentation (#9699)
+  * Link to GitHub Pages Dependency versions page instead of explicitly specifying Jekyll version (#9715)
+  * Fix broken link on third-party.md (#9704)
+  * Fix: remove inaccessible links and their descriptions (#9745)
+  * Add release post for v4.4.0 (#9759)
+
+### Site Enhancements
+
+  * Extract markup for `Improve this page` into an inclusion (#9675)
+
+## 4.3.4 / 2024-09-16
 
 ### Bug Fixes
 
-  * Optimize default front matter using `File.fnmatch?` (#9185)
-  * Remove totals in profile table properly (#9186)
-  * Optimize `Site#each_site_file` (#9187)
-  * Rename sass partial created for new blank site (#9257)
+  * Backport #9662 for v4.3.x: Relax version constraint on wdm in new Gemfile (#9683)
+  * Backport #9680 for v4.3.x: Render theme-gem root only in development (#9684)
+
+### Development Fixes
+
+  * Sync workflows with counterparts on `master` (#9681)
+
+## 4.3.3 / 2023-12-27
+
+### Bug Fixes
+
+  * Backport #9392 for v4.3.x: Fix backward compatibility issues in the Logger (#9510)
+
+### Development Fixes
+
+  * Backport #9237 for v4.3.x: Use Hash explicitly for Struct initializer (#9285)
+
+## 3.10.0 / 2024-06-23
+
+### Minor Enhancements
+
+  * Backport add-csv-dependency from #9522 to Jekyll 3 (#9616)
+  * 3.10-stable: Add webrick as a dependency (#9620)
+
+## 3.9.5 / 2024-02-12
+
+### Minor Enhancements
+
+  * 3.9-stable: allow Pages to be Excerpted (#9550)
+
+## 3.9.4 / 2023-12-28
+
+### Bug Fixes
+
+  * Backport #9392 for v3.9.x: Add support for Ruby 3.3 Logger (#9513)
+
+## 3.9.3 / 2023-01-29
+
+### Bug Fixes
+
+  * 3.9.x: Support i18n 1.x (#9269)
+  * Backport #8880 for v3.9.x: Support both tzinfo v1 and v2 along with non-half hour offsets (#9280)
+
+### Development Fixes
+
+  * v3.9.x: test under Ruby 3.2 #9272)
+  * v3.9.x: fix rdiscount test (#9277)
 
 ## 4.3.2 / 2023-01-20
-
-  * Optimize default front matter using `File.fnmatch?` (#9185)
-  * Remove totals in profile table properly (#9186)
-  * Optimize `Site#each_site_file` (#9187)
-  * Rename sass partial created for new blank site (#9257)
 
 ### Bug Fixes
 
   * Backport #9257 for v4.3.x: Rename sass partial created for new blank site (#9262)
   * Backport #9187 for v4.3.x: Optimize `Site#each_site_file` (#9256)
   * Backport #9186 for v4.3.x: Remove totals in profile table properly (#9255)
+
+### Development Fixes
+
+  * Backport #9223 for 4.3.x: Update sass related tests for jekyll-sass-converter 3.x (#9254)
 
 ## 4.3.1 / 2022-10-26
 
@@ -184,7 +342,7 @@
   * Remove Aerobatic (#9007)
   * Add Jekyll 3.9.2 release post to &#39;master&#39; branch (#9013)
   * Simplify macOS installation docs (#8993)
-  * Improve document about Github Actions section (#8853)
+  * Improve document about GitHub Actions section (#8853)
   * Update permalinks.md  (#9017)
   * Add clarity to docs on permalinks placeholders and built-ins (#8995)
   * Remove Ionic Framework site from showcase (#9057)
@@ -1258,7 +1416,7 @@
   * make flakey test more robust (#6277)
   * Add a quick test for DataReader (#6284)
   * script/backport-pr: commit message no longer includes the `#` (#6289)
-  * Add Add CODEOWNERS file to help automate reviews. (#6320)
+  * Add CODEOWNERS file to help automate reviews. (#6320)
   * Fix builds on codeclimate (#6333)
   * Bump rubies on Travis (#6366)
 
@@ -2316,7 +2474,7 @@
   * Fixed an unclear code comment in site template SCSS (#3837)
   * Fix reading of binary metadata file (#3845)
   * Remove var collision with site template header menu iteration variable (#3838)
-  * Change non-existent `hl_linenos` to `hl_lines` to allow passthrough in safe mode (#3787)
+  * Change nonexistent `hl_linenos` to `hl_lines` to allow passthrough in safe mode (#3787)
   * Add missing flag to disable the watcher (#3820)
   * Update CI guide to include more direct explanations of the flow (#3891)
   * Set `future` to `false` in the default config (#3892)
@@ -2625,7 +2783,7 @@
   * Document the `name` variable for collection permalinks (#2829)
   * Adds info about installing jekyll in current dir (#2839)
   * Remove deprecated `jekyll-projectlist` plugin from list of third-party plugins (#2742)
-  * Remove tag plugins that are built in to Jekyll (#2751)
+  * Remove tag plugins that are built into Jekyll (#2751)
   * Add `markdown-writer` package for Atom Editor to list of third-party plugins (#2763)
   * Fix typo in site documentation for collections (#2764)
   * Fix minor typo on plugins docs page (#2765)
